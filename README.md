@@ -10,30 +10,24 @@ Own Docker registry with primitive authorization
 ```console
 $ docker run --rm --entrypoint htpasswd registry:2.7.0 -Bbn admin mypassword > auth/htpasswd
 ```
-2. Run containers:
+2. Generate private key and X.509 self-signed certificate on 10 years:
+```console
+$ openssl req -newkey rsa:2048 -nodes -keyout auth/server.key -x509 -days 3650 -out auth/server.crt
+```
+3. Run containers:
 ```console
 $ docker-compose up -d
 ```
-3. See two run containers by
+4. See two run containers by
 ```console
 $ docker ps
 ```
-4. Login into own registry:
+5. Login into own registry:
 ```console
-$ docker login -u=admin -p=mypassword  myserver:5000
+$ docker login -u=admin -p=mypassword  myserver:443
 ```
-5. Commit and push your image:
+6. Commit and push your image:
 ```console
-$ docker commit <some hash> myserver/my-image
-$ docker push myserver:5000/my-image
-```
-
-## Docker client configure
-This solution use unsafe http protocol, so be careful! And on client side, you should configure docker daemon how did me:
-```json
-$ cat /etc/docker/daemon.json
-{
-    "insecure-registries":["myserver:5000"]
-}
-
+$ docker commit <some hash> myserver:443/my-image
+$ docker push myserver:443/my-image
 ```
