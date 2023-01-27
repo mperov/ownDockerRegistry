@@ -12,7 +12,7 @@ $ docker run --rm --entrypoint htpasswd registry:2.7.0 -Bbn admin mypassword > a
 ```
 2. Generate private key and X.509 self-signed certificate on 10 years:
 ```console
-$ openssl req -newkey rsa:2048 -nodes -keyout auth/server.key -x509 -days 3650 -out auth/server.crt
+$ openssl req -newkey rsa:2048 -subj "/CN=myserver" -addext "subjectAltName = DNS:myserver" -nodes -keyout auth/server.key -x509 -days 3650 -out auth/server.crt
 ```
 3. Run containers:
 ```console
