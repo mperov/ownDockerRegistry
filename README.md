@@ -31,3 +31,9 @@ $ docker login -u=admin -p=mypassword  myserver:443
 $ docker commit <some hash> myserver:443/my-image
 $ docker push myserver:443/my-image
 ```
+
+## Docker client configure
+```console
+$ sudo mkdir -p /etc/docker/certs.d/myserver:443/
+$ sudo cp server.crt /etc/docker/certs.d/myserver:443/ca.crt
+```
