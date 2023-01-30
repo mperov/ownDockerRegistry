@@ -33,7 +33,7 @@ $ docker push myserver:443/my-image
 ```
 
 ## Docker client configure
-On the second step you have generated self-signed certificate but docker may only pull from docker registry with trusted certificate.  
+On the second step you have generated self-signed certificate but docker may only communicate from docker registry with trusted certificate.  
 So you should place the certificate to special directory on each machines:  
 ```console
 $ sudo mkdir -p /etc/docker/certs.d/myserver:443/
