@@ -1,0 +1,15 @@
+---
+- name: Add self-signed sertificate to trusted list
+  hosts: all
+  remote_user: root
+  tasks:
+  - name: mkdir 'certificate directory' and set permissions
+    ansible.builtin.file:
+      path: /etc/docker/certs.d/myserver:443/
+      owner: root
+      group: root
+      mode: '755'
+      state: directory
+
+  - name: Copy certificate
+    copy: src=./auth/server.crt dest=/etc/docker/certs.d/myserver:443/server.crt
