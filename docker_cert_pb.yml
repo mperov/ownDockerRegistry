@@ -3,13 +3,24 @@
   hosts: all
   remote_user: root
   tasks:
-  - name: mkdir 'certificate directory' and set permissions
+  - name: mkdir 'certificate directory with port 443' and set permissions
     ansible.builtin.file:
       path: "/etc/docker/certs.d/{{ server_name }}:443/"
       owner: root
       group: root
       mode: '755'
       state: directory
+      
+   - name: mkdir 'certificate directory' and set permissions
+    ansible.builtin.file:
+      path: "/etc/docker/certs.d/{{ server_name }}/"
+      owner: root
+      group: root
+      mode: '755'
+      state: directory
 
-  - name: Copy certificate
+  - name: Copy certificate for name with 443 port
     copy: "src=./auth/server.crt dest=/etc/docker/certs.d/{{ server_name }}:443/server.crt"
+    
+  - name: Copy certificate
+    copy: "src=./auth/server.crt dest=/etc/docker/certs.d/{{ server_name }}/server.crt"    
