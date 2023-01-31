@@ -24,20 +24,20 @@ $ docker ps
 ```
 5. Login into own registry:
 ```console
-$ docker login -u=admin -p=mypassword  myserver:443
+$ docker login -u=admin -p=mypassword  myserver
 ```
 6. Commit and push your image:
 ```console
-$ docker commit <some hash> myserver:443/my-image
-$ docker push myserver:443/my-image
+$ docker commit <some hash> myserver/my-image
+$ docker push myserver/my-image
 ```
 
 ## Docker client configure
 On the second step you have generated self-signed certificate but docker may only communicate from docker registry with trusted certificate.  
 So you should place the certificate to special directory on each machines:  
 ```console
-$ sudo mkdir -p /etc/docker/certs.d/myserver:443/
-$ sudo cp server.crt /etc/docker/certs.d/myserver:443/ca.crt
+$ sudo mkdir -p /etc/docker/certs.d/myserver/
+$ sudo cp server.crt /etc/docker/certs.d/myserver/server.crt
 ```
 Or apply ansible playbook on all docker clients:
 ```console
