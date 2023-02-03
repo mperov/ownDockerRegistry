@@ -38,6 +38,8 @@ So you should place the certificate to special directory on each machines:
 ```console
 $ sudo mkdir -p /etc/docker/certs.d/myserver/
 $ sudo cp server.crt /etc/docker/certs.d/myserver/server.crt
+# or there is other way
+$ sudo su -c "echo quit | openssl s_client -showcerts -servername server -connect myserver:443 > /etc/docker/certs.d/myserver/server.crt"
 ```
 Or apply ansible playbook on all docker clients:
 ```console
