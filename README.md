@@ -5,7 +5,7 @@ Own Docker registry with primitive authorization
 - [Docker](https://docs.docker.com/install/)
 - [docker-compose](https://docs.docker.com/compose/install/)
 
-## Starup server
+## Startup server
 1. Generate admin credentials:
 ```console
 $ docker run --rm --entrypoint htpasswd registry:2.7.0 -Bbn admin mypassword > auth/htpasswd
@@ -44,4 +44,16 @@ $ sudo su -c "echo quit | openssl s_client -showcerts -servername server -connec
 Or apply ansible playbook on all docker clients:
 ```console
 $ ansible-playbook docker_cert_pb.yml -e server_name=myserver
+```
+
+## Docker registry contant
+List of all images:
+```console
+$ curl -u admin:mypassword -k https://myserver/v2/_catalog
+{"repositories":["hello-world","myubuntu","mycentos"]}
+```
+All tags list of chosen image:
+```console
+$ curl -u docker:docker -k https://myserver/v2/myubuntu/tags/list
+{"name":"myubuntu","tags":["latest","v0.1"]}
 ```
